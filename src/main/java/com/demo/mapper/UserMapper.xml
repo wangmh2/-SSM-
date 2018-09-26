@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.UserMapper">
+    <select id="queryUserbyemail" parameterType="String" resultType="com.demo.entity.User">
+        select * from user where useremail = #{useremail}
+    </select>
+    
+    <!--values在单行插入时较快  value在多行插入时较快-->
+    <insert id="adduser" parameterType="com.demo.entity.User">
+        insert into user (useremail,password,password_protection,createtime,state) values 
+        (#{useremail},#{password},#{password_protection},#{createtime},0)
+    </insert>
+    <!--多参数传入的时候 使用索引 -->
+    <update id="updatepassword">
+        update user set password = #{0} where useremail = #{1}
+    </update>
+    
+    <select id="querybucode" parameterType="String" resultType="com.demo.entity.User">
+        select * from user where code = #{code}
+    </select>
+    
+    <update id="updatestate">
+        update user set state = 1 where useremail = #{1}
+    </update>
+</mapper>
