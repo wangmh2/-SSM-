@@ -4,7 +4,7 @@ import com.demo.entity.User;
 
 public interface UserService {
     //根据手机号码来查询用户
-    public User queryuserbyemail(String useremail) throws Exception;
+    public User queryUserbyemail(String useremail) throws Exception;
     
     //添加用户
     public void adduser(User user) throws Exception;

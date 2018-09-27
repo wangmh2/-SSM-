@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.MessageMapper">
+    <insert id="addmessage" parameterType="com.demo.entity.Message">
+        insert into message (useremail, info, createtime) values (#{useremail},#{info},#{createtime})
+    </insert>
+    <select id="querymessage" resultType="com.demo.entity.Message" parameterType="int">
+        select * from message limit #{pageno},5
+    </select>
+    <select id="queryconut" resultType="int">
+        select count(*) from message ;
+    </select>
+</mapper>

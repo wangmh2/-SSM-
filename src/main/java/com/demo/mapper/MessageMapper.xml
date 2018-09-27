@@ -6,11 +6,9 @@
     <insert id="addmessage" parameterType="com.demo.entity.Message">
         insert into message (useremail, info, createtime) values (#{useremail},#{info},#{createtime})
     </insert>
-    
     <select id="querymessage" resultType="com.demo.entity.Message" parameterType="int">
         select * from message limit #{pageno},5
     </select>
-    
     <select id="queryconut" resultType="int">
         select count(*) from message ;
     </select>

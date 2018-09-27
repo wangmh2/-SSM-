@@ -5,7 +5,7 @@ import com.demo.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
-    //根据手机号码来查询用户
+    //根据邮箱来查询用户
     public User queryUserbyemail(String useremail) throws Exception;
     
     //添加用户

@@ -33,7 +33,7 @@
             }else if (vcode == ""){
                 window.alert("请填写验证码");
             }else{
-                location.href = "/userlogin?useremail="+useremail+"&password="+password+"&vcode="+vcode;
+                location.href = "userlogin?useremail="+useremail+"&password="+password+"&vcode="+vcode;
             }
         }
         <!--让返回的错误信息3秒后消失-->
@@ -164,12 +164,12 @@
                         <input type="text" id="vcode" class="form-control" placeholder="请输入验证码" name="vcode" aria-describedby="basic-addon1">
                     </div>
                     <div id="vc">
-                        <img src="/kaptcha.jpg" id="kaptchaImage" title="看不清，点击换一张" onclick="changeVerifyCode()">
+                        <img src="kaptcha.jpg" id="kaptchaImage" title="看不清，点击换一张" onclick="changeVerifyCode()">
                     </div>
                     <button type="button" class="btn btn-info" id="loginbutton" onclick="userlogin()">登录</button>
                     <button type="reset" class="btn btn-info" id="resetbutton" value="Reset">重填</button>
                     <div id="forgetpassword">
-                        <a href="/forgetpassword">忘记密码？</a>
+                        <a href="forgetpassword">忘记密码？</a>
                     </div>
                 </form>
             </div>

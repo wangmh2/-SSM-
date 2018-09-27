@@ -23,8 +23,7 @@ public class MessageServiceImpl implements MessageService{
         List<Message> me = mm.querymessage(pageno1);
         return me;
     }
-
-
+    
     @Override
     public int queryconut() {
         int i = mm.queryconut();

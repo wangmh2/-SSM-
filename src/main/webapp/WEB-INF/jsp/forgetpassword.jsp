@@ -23,7 +23,7 @@
             }else if(newpassword !== newpassword_again){
                 alert("两次输入的密码不一致");
             }else{
-                location.href = "/changepassword?useremail="+useremail+"&newpassword="+newpassword+"&password_protection="+password_protection;
+                location.href = "changepassword?useremail="+useremail+"&newpassword="+newpassword+"&password_protection="+password_protection;
             }
         }
 

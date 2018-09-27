@@ -124,7 +124,7 @@
         if(info == ""){
             alert("朋友您确定不吐槽一下我的这个破网站吗");
         }else{
-            location.href = "/addmessage?info="+info+"&useremail="+useremail;
+            location.href = "addmessage?info="+info+"&useremail="+useremail;
         }
     }
     
@@ -134,7 +134,7 @@
             alert("前面没有了哦！");
         }else{
             var pageno = parseInt(dangqianpageno) - parseInt(1);
-            location.href = "/changemessage?pageno="+pageno;
+            location.href = "changemessage?pageno="+pageno;
         }
         
     }
@@ -146,17 +146,17 @@
             alert("后面没有了哦！");
         }else{
             var pageno = parseInt(dangqianpageno) + parseInt(1);
-            location.href = "/changemessage?pageno="+pageno;
+            location.href = "changemessage?pageno="+pageno;
         }
     }
     
     function one(){
-        location.href = "/changemessage?pageno="+1;
+        location.href = "changemessage?pageno="+1;
     }
     
     function thelast() {
         var pageno = "<%=session.getAttribute("pagenum")%>";
-        location.href = "/changemessage?pageno="+pageno;
+        location.href = "changemessage?pageno="+pageno;
     }
 </script>
 </html>

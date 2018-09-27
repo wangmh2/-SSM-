@@ -27,19 +27,21 @@ public class UserController {
     private Producer captchaProducer = null;
 
     //跳转至登录界面
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
+    @RequestMapping("login")
+    public ModelAndView login(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("login");
+        return mav;
     }
 
     //跳转至注册界面
-    @RequestMapping("/resigter")
+    @RequestMapping("resigter")
     public String resigter() {
         return "resigter";
     }
 
     //跳转至忘记密码界面
-    @RequestMapping("/forgetpassword")
+    @RequestMapping("forgetpassword")
     public String forgetpassword(){
         return "forgetpassword";
     }
@@ -50,12 +52,12 @@ public class UserController {
         return "test";
     }
 
-    @RequestMapping("/chat")
+    @RequestMapping("chat")
     public String chat(){return "chat";}
 
 
     //登录控制
-    @RequestMapping(value = "/userlogin", method = RequestMethod.GET)
+    @RequestMapping(value = "userlogin", method = RequestMethod.GET)
     public ModelAndView userlogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //用户输入的邮箱
         String useremail = request.getParameter("useremail");
@@ -70,7 +72,7 @@ public class UserController {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
         if (vcode.equals(request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY))) {
-            User user = usi.queryuserbyemail(useremail);
+            User user = usi.queryUserbyemail(useremail);
             if (user != null) {
                 if (user.getPassword().equals(password)) {
                     //将用户邮箱放入session中
@@ -78,25 +80,25 @@ public class UserController {
                     String timeq = tt.time();
                     request.getSession().setAttribute("time",timeq);
                     request.getSession().setAttribute("useremail",useremail);
-                    mav.setViewName("/userpage");
+                    mav.setViewName("userpage");
                 } else {
                     mav.addObject("message","您的密码错误");
-                    mav.setViewName("/login");
+                    mav.setViewName("login");
                 }
             }else{
                 mav.addObject("message","该用户不存在");
-                mav.setViewName("/login");
+                mav.setViewName("login");
             }
         }else{
             mav.addObject("message","验证码错误");
-            mav.setViewName("/login");
+            mav.setViewName("login");
         }
 
         return mav;
     }
 
     //注册控制
-    @RequestMapping(value = "/userresigter", method = RequestMethod.GET)
+    @RequestMapping(value = "userresigter", method = RequestMethod.GET)
     public ModelAndView userresigter(HttpServletRequest request,HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
         String useremail = request.getParameter("useremail");
@@ -104,44 +106,44 @@ public class UserController {
         String password_protection = request.getParameter("password_protection");
         Date date = new Date();
         Timestamp createtime = new Timestamp(date.getTime());
-        User user = usi.queryuserbyemail(useremail);
+        User user = usi.queryUserbyemail(useremail);
         if(user == null){
             //确认添加用户
             User user1 = new User(useremail,password,password_protection,createtime,0);
             usi.adduser(user1);
             mav.addObject("useremail",useremail);
             mav.addObject("password",password);
-            mav.setViewName("/login");
+            mav.setViewName("login");
         }else{
             mav.addObject("message","该邮箱已经被注册");
-            mav.setViewName("/resigter");
+            mav.setViewName("resigter");
         }
         return mav;
     }
 
     //更改密码
-    @RequestMapping(value = "/changepassword",method = RequestMethod.GET)
+    @RequestMapping(value = "changepassword",method = RequestMethod.GET)
     public ModelAndView changepassword(HttpServletRequest request,HttpServletResponse response) throws Exception {
         ModelAndView mav = new ModelAndView();
         String useremail = request.getParameter("useremail");
         String newpassword = request.getParameter("newpassword");
         String password_protection = request.getParameter("password_protection");
-        User user = usi.queryuserbyemail(useremail);
+        User user = usi.queryUserbyemail(useremail);
         if(user != null){
             if(password_protection.equals(user.getPassword_protection())){
                 usi.updatepassword(newpassword,useremail);
-                User user1 = usi.queryuserbyemail(useremail);
+                User user1 = usi.queryUserbyemail(useremail);
                 System.out.println(user1);
                 mav.addObject("useremail",useremail);
                 mav.addObject("password",newpassword);
-                mav.setViewName("/login");
+                mav.setViewName("login");
             }else{
                 mav.addObject("message","您的密保号不正确");
-                mav.setViewName("/forgetpassword");
+                mav.setViewName("forgetpassword");
             }
         }else{
             mav.addObject("message","该邮箱账号不存在");
-            mav.setViewName("/forgetpassword");
+            mav.setViewName("forgetpassword");
         }
 
         return mav;

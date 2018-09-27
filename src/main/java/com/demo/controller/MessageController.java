@@ -20,7 +20,7 @@ public class MessageController {
     @Autowired
     private MessageServiceImpl mmi;
     //增加留言
-    @RequestMapping(value = "/addmessage",method = RequestMethod.GET)
+    @RequestMapping(value = "addmessage",method = RequestMethod.GET)
     public ModelAndView addmessage(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mav = new ModelAndView();
         String info = request.getParameter("info");
@@ -46,11 +46,11 @@ public class MessageController {
             System.out.println(i);
         }
         mav.addObject("message1",list);
-        mav.setViewName("/liuyanban");
+        mav.setViewName("liuyanban");
         return mav;
     }
     //第一次进入时初始化留言板
-    @RequestMapping("/message")
+    @RequestMapping("message")
     public ModelAndView liuyanban(HttpServletRequest request,HttpServletResponse response){
         ModelAndView mav = new ModelAndView();
         int pageno1 = 1;
@@ -73,11 +73,11 @@ public class MessageController {
         message = mmi.querymessage(pageno1);
        
         mav.addObject("message1",message);
-        mav.setViewName("/liuyanban");
+        mav.setViewName("liuyanban");
         return mav;
     }
     //改变页数
-    @RequestMapping(value = "/changemessage",method = RequestMethod.GET)
+    @RequestMapping(value = "changemessage",method = RequestMethod.GET)
     public ModelAndView changemessage(HttpServletRequest request,HttpServletResponse response){
         ModelAndView mav = new ModelAndView();
         String pageno = request.getParameter("pageno");
@@ -88,7 +88,7 @@ public class MessageController {
         List<Message> message = new ArrayList();
         message = mmi.querymessage(pageno1);
         mav.addObject("message1",message);
-        mav.setViewName("/liuyanban");
+        mav.setViewName("liuyanban");
         return mav;
     }
 }

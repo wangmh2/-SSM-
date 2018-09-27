@@ -18,7 +18,7 @@
                 }else if(password != password_again){
                     window.alert("两次输入的密码不同");
                 }else{
-                    location.href = "/userresigter?useremail="+useremail+"&password="+password+"&password_protection="+password_protection;
+                    location.href = "userresigter?useremail="+useremail+"&password="+password+"&password_protection="+password_protection;
                 }
             }
 

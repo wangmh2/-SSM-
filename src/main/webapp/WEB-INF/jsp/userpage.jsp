@@ -124,7 +124,7 @@
     <nav>
         
         <div onclick="tishi()">
-            <a href="/chat">
+            <a href="">
                 <div>
                     <h1>在线弹幕聊天</h1>
                     <span></span>
@@ -148,7 +148,7 @@
             </a>
         </div>
         <div>
-            <a href="/message">
+            <a href="message">
                 <div>
                     <h1>留言板</h1>
                     <span></span>
