@@ -1,6 +1,7 @@
 package com.demo.service;
 
 import com.demo.entity.User;
+
 import com.demo.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User queryUserbyemail(String useremail) throws Exception {
-        User user = um.queryUserbyemail(useremail);
+    public User queryUserbyphonenumber(String phonenumber) throws Exception {
+        User user = um.queryUserbyphonenumber(phonenumber);
         return user;
     }
 
@@ -23,18 +24,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updatepassword(String newpassword, String useremail) throws Exception {
-        um.updatepassword(newpassword,useremail);
+    public void updatepassword(String newpassword, String phonenumber) throws Exception {
+        um.updatepassword(newpassword,phonenumber);
     }
 
     @Override
-    public User querybycode(String code) throws Exception {
-        User user = um.querybycode(code);
+    public User querybyname(String username) throws Exception {
+        User user = um.querybyname(username);
         return user;
-    }
-
-    @Override
-    public void updatestate(String useremail) {
-        um.updatestate(useremail);
     }
 }

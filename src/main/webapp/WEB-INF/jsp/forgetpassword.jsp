@@ -12,18 +12,20 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
     <script>
         function check() {
-            var useremail = document.getElementById("useremail").value.trim();
-            var password_protection = document.getElementById("password_protection").value.trim();
+            var phonenumber = document.getElementById("phonenumber").value.trim();
+            
             var newpassword = document.getElementById("newpassword").value.trim();
             var newpassword_again = document.getElementById("newpassword_again").value.trim();
-            if(useremail == "" || password_protection == "" || newpassword == "" || newpassword_again == ""){
-                alert("请将信息填写完整");
+            if(phonenumber == "" || password_protection == "" || newpassword == "" || newpassword_again == ""){
+                sweetAlert("请将信息填写完整");
             }else if(newpassword !== newpassword_again){
-                alert("两次输入的密码不一致");
+                sweetAlert("两次输入的密码不一致");
             }else{
-                location.href = "changepassword?useremail="+useremail+"&newpassword="+newpassword+"&password_protection="+password_protection;
+                location.href = "changepassword?phonenumber="+phonenumber+"&newpassword="+newpassword;
             }
         }
 
@@ -123,7 +125,7 @@
             </div>
             <div class="input-group d1">
                 <span class="input-group-addon glyphicon glyphicon-user" id="basic-addon1"></span>
-                <input type="text" id="useremail" class="form-control" placeholder="请输入您的邮箱" name="useremail" aria-describedby="basic-addon1">
+                <input type="text" id="phonenumber" class="form-control" placeholder="请输入您的手机号码" name="phonenumber" aria-describedby="basic-addon1">
             </div>
             <div class="input-group d2">
                 <span class="input-group-addon glyphicon glyphicon-user" id="basic-addon2"></span>

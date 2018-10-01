@@ -8,7 +8,7 @@
   <display-name>newproject</display-name>
   <!--定义访问的首页,如果配置了多个的话,服务器会按照定义的顺序来进行选择访问-->
   <welcome-file-list>
-    <welcome-file>test.html</welcome-file>
+    <welcome-file>homepage.html</welcome-file>
   </welcome-file-list>
 
   <jsp-config>

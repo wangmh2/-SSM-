@@ -84,7 +84,7 @@
         });
         
         function tishi(){
-            alert("此功能还未开发完全");
+            sweetAlert("此功能还未开发完全");
         }
         
     </script>
@@ -124,7 +124,7 @@
     <nav>
         
         <div onclick="tishi()">
-            <a href="">
+            
                 <div>
                     <h1>在线弹幕聊天</h1>
                     <span></span>
@@ -136,7 +136,7 @@
             </a>
         </div>
         <div onclick="tishi()">
-            <a href="">
+           
                 <div>
                     <h1>备忘录</h1>
                     <span></span>
@@ -161,7 +161,7 @@
         </div>
         
         <div>
-            <a href="/test.html">
+            <a href="homepage.html">
                 <div>
                     <h1>退出登录</h1>
                     <span></span>
@@ -176,7 +176,7 @@
             
         </div>
         <div id="useremail">
-            <p>尊敬的用户<%=session.getAttribute("useremail")%><%=session.getAttribute("time")%>
+            <p>尊敬的用户<%=session.getAttribute("username")%><%=session.getAttribute("time")%>
         </div>
     </nav>
     

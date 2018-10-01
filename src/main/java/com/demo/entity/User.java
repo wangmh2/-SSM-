@@ -3,30 +3,28 @@ package com.demo.entity;
 import java.sql.Timestamp;
 
 public class User {
-    private String useremail;
+    private String username;
     private String password;
-    private String password_protection;
+    private String phonenumber;
     private Timestamp createtime;
-    private int state;
-
-    public User(String useremail, String password, String password_protection, Timestamp createtime, int state) {
-        this.useremail = useremail;
-        this.password = password;
-        this.password_protection = password_protection;
-        this.createtime = createtime;
-        this.state = state;
-    }
     
     public User(){
         
     }
 
-    public String getUseremail() {
-        return useremail;
+    public User(String username, String password, String phonenumber, Timestamp createtime) {
+        this.username = username;
+        this.password = password;
+        this.phonenumber = phonenumber;
+        this.createtime = createtime;
     }
 
-    public void setUseremail(String useremail) {
-        this.useremail = useremail;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -37,12 +35,12 @@ public class User {
         this.password = password;
     }
 
-    public String getPassword_protection() {
-        return password_protection;
+    public String getPhonenumber() {
+        return phonenumber;
     }
 
-    public void setPassword_protection(String password_protection) {
-        this.password_protection = password_protection;
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     public Timestamp getCreatetime() {
@@ -53,22 +51,13 @@ public class User {
         this.createtime = createtime;
     }
 
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
     @Override
     public String toString() {
         return "User{" +
-                "useremail='" + useremail + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", password_protection='" + password_protection + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
                 ", createtime=" + createtime +
-                ", state=" + state +
                 '}';
     }
 }

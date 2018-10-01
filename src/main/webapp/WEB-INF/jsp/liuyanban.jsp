@@ -14,6 +14,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
     
     <style>
         #container{
@@ -122,7 +124,7 @@
         var info = document.getElementById("amessage").value.trim();
         var useremail = "<%=session.getAttribute("useremail")%>";
         if(info == ""){
-            alert("朋友您确定不吐槽一下我的这个破网站吗");
+            sweetAlert("朋友您确定不吐槽一下我的这个破网站吗");
         }else{
             location.href = "addmessage?info="+info+"&useremail="+useremail;
         }
@@ -131,7 +133,7 @@
     function last() {
         var dangqianpageno = "<%=session.getAttribute("dangqianpageno")%>";
         if(dangqianpageno == 1){
-            alert("前面没有了哦！");
+            sweetAlert("前面没有了哦！");
         }else{
             var pageno = parseInt(dangqianpageno) - parseInt(1);
             location.href = "changemessage?pageno="+pageno;
@@ -143,7 +145,7 @@
         var dangqianpageno = "<%=session.getAttribute("dangqianpageno")%>";
         var pagenum = "<%=session.getAttribute("pagenum")%>";
         if(dangqianpageno == pagenum){
-            alert("后面没有了哦！");
+            sweetAlert("后面没有了哦！");
         }else{
             var pageno = parseInt(dangqianpageno) + parseInt(1);
             location.href = "changemessage?pageno="+pageno;

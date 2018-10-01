@@ -12,28 +12,37 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
     <script type="text/javascript">
         <!--点击验证码图片进行更新-->
         function changeVerifyCode() {
             var time=new Date().getTime();
-            document.getElementById("kaptchaImage").src="/kaptcha?d="+time;//为了不让验证码缓存，为了安全起见，需要次次都刷新
+            document.getElementById("kaptchaImage").src="kaptcha?d="+time;//为了不让验证码缓存，为了安全起见，需要次次都刷新
         }
         <!--验证登录信息是否填写完整 -->
         function userlogin(){
-            var useremail = document.getElementById("useremail").value.trim();
+            var phonenumber = document.getElementById("phonenumber").value.trim();
             
             var password = document.getElementById("password").value.trim();
            
             var vcode = document.getElementById("vcode").value.trim();
             
-            if(useremail == ""){
-                window.alert("请填写登录邮箱");
+            if(phonenumber == ""){
+                sweetAlert("请填写登录手机号");
             }else if (password == "") {
-                window.alert("请填写密码");
+                sweetAlert("请填写密码");
             }else if (vcode == ""){
-                window.alert("请填写验证码");
+                sweetAlert("请填写验证码");
             }else{
-                location.href = "userlogin?useremail="+useremail+"&password="+password+"&vcode="+vcode;
+                $.ajax({
+                    url:'userlogin',
+                    type:'post',
+                    data: 'phonenumber='+phonenumber+'&password='+password+'&vcode='+vcode,
+                    success: function (data) {
+                        sweetAlert("正在登录，请稍后");
+                    }
+                })
             }
         }
         <!--让返回的错误信息3秒后消失-->
@@ -154,11 +163,11 @@
                 <form action="userlogin" method="post">
                     <div class="input-group d1">
                         <span class="input-group-addon glyphicon glyphicon-user" id="basic-addon1"></span>
-                        <input type="text" id="useremail" value="${useremail}" class="form-control" placeholder="useremail" name="useremail" aria-describedby="basic-addon1">
+                        <input type="text" id="phonenumber" value="<%=session.getAttribute("userphone")%>" class="form-control" placeholder="手机号码" name="phonenumber" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group d2">
                         <span class="input-group-addon glyphicon glyphicon-asterisk" id="basic-addon2"></span>
-                        <input type="password" id="password" value="${password}" class="form-control" placeholder="password" name="password" aria-describedby="basic-addon1">
+                        <input type="password" id="password" value="<%=session.getAttribute("password")%>" class="form-control" placeholder="password" name="password" aria-describedby="basic-addon1">
                     </div>
                     <div id="vcinput">
                         <input type="text" id="vcode" class="form-control" placeholder="请输入验证码" name="vcode" aria-describedby="basic-addon1">
