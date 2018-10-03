@@ -15,24 +15,55 @@
     <script src="js/sweetalert.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
     <script>
+        var isonclick = false;
         function check() {
             var phonenumber = document.getElementById("phonenumber").value.trim();
             
             var newpassword = document.getElementById("newpassword").value.trim();
             var newpassword_again = document.getElementById("newpassword_again").value.trim();
-            if(phonenumber == "" || password_protection == "" || newpassword == "" || newpassword_again == ""){
+            var yanzhengma = document.getElementById("yanzhengma").value.trim();
+            if(phonenumber == "" || yanzhengma == "" || newpassword == "" || newpassword_again == ""){
                 sweetAlert("请将信息填写完整");
             }else if(newpassword !== newpassword_again){
                 sweetAlert("两次输入的密码不一致");
-            }else{
-                location.href = "changepassword?phonenumber="+phonenumber+"&newpassword="+newpassword;
+            }else if(isonclick == false){
+                sweetAlert("请先请求验证码");
+            } else{
+                var params = {};
+                params.phonenumber = phonenumber;
+                params.newpassword = newpassword;
+                params.yanzhengma = yanzhengma;
+                
+                $.ajax({
+                    async:false,
+                    url:"changepassword",
+                    type:"post",
+                    data:params,
+                    datatype:'json',
+                    success: function (data) {
+                        if(data.code == "0"){
+                            sweetAlert("没有此用户");
+                        }else if(data.code == "1"){
+                            window.location.href = "login";
+                        }else{
+                            sweetAlert("验证码错误");
+                        }
+                    }
+                })
             }
         }
 
-        <!--让返回的错误信息3秒后消失-->
-        $(function(){
-            $("#message").show().delay(3000).fadeOut();
-        })
+        function sendcode() {
+            isonclick = true;
+            $.ajax({
+                url:'sendcode1',
+                type:"get",
+                data: "phonenumber="+document.getElementById("phonenumber").value.trim(),
+                success: function (data) {
+                    sweetAlert("您的验证码已经发送，请注意查收");
+                }
+            })
+        }
     </script>
     <style>
         #container{
@@ -66,11 +97,18 @@
             width: 250px;
         }
         
-        .d2{
+        #yanzhengmabutton{
             position: absolute;
             top: 130px;
             left: 21px;
-            width: 250px;
+            width: 100px;
+        }
+        
+        #yanzhengma{
+            position: absolute;
+            top: 130px;
+            left: 140px;
+            width: 133px;
         }
         
         .d3 {
@@ -128,8 +166,8 @@
                 <input type="text" id="phonenumber" class="form-control" placeholder="请输入您的手机号码" name="phonenumber" aria-describedby="basic-addon1">
             </div>
             <div class="input-group d2">
-                <span class="input-group-addon glyphicon glyphicon-user" id="basic-addon2"></span>
-                <input type="text" id="password_protection" class="form-control" placeholder="请输入您的密保号" name="password_protection" aria-describedby="basic-addon1">
+                <button type="button" class="btn btn-info" id="yanzhengmabutton" onclick="sendcode()">发送验证码</button> 
+                <input type="text" id="yanzhengma" class="form-control" placeholder="请输入验证码" name="yanzhengma" aria-describedby="basic-addon1">
             </div>
             <div class="input-group d3">
                 <span class="input-group-addon glyphicon glyphicon-user" id="basic-addon3"></span>

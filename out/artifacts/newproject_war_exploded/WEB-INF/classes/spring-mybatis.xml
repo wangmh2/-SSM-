@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+    <!--开启自动扫描 将标注spring的注解转换成bean-->
+    <context:component-scan base-package="com.demo.mapper" />
+    <context:component-scan base-package="com.demo.service" />
+    
+    <!--获取数据源:导入外部的jdbc.properties文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+    
+    <!--数据源配置:配置jdbc的连接池 c3p0-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+    
+    <!--SqlSessionFactory实例化 通过数据源和mybatis的核心配置文件去实例化SqlSesssion工程-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:SqlMapConfig.xml"></property>
+    </bean>
+    
+    <!--持久层实现类的对象实例化  装配dao接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+        <property name="basePackage" value="com.demo.mapper" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+    
+    <!--声明事物管理-->
+    <bean id="transacrionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    
+    <!--注解事物切面-->
+    <tx:annotation-driven transaction-manager="transacrionManager" />
+    
+</beans>

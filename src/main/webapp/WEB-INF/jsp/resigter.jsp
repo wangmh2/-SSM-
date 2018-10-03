@@ -28,22 +28,29 @@
                 }else if(isonclick == false){
                     sweetAlert("请先请求手机验证码！");
                 }else{
-                    var data = {
-                        phonenumber: phonenumber,
-                        password: password,
-                        username: username,
-                        yanzhengma: yanzhengma
-                    }
-                    
+                    var params = {};
+                    params.phonenumber = phonenumber;
+                    params.password = password;
+                    params.username = username;
+                    params.yanzhengma = yanzhengma;
+                    <!--async 设置为 false，则所有的请求均为同步请求，在没有返回值之前，同步请求将锁住浏览器，用户其它操作必须等待请求完成才可以执行 -->
                     $.ajax({
+                        async:false,
                         url:"userresigter",
                         type:"post",
-                        data: data,
+                        data: params,
                         datatype: 'json',
                         success: function (data) {
-                            sweetAlert("正在注册，请稍后");
+                            if(data.code == "0"){
+                                window.location.href = "login";
+                                sweetAlert("注册成功！");
+                            }else if(data.code == "2"){
+                                sweetAlert("该手机号码已经被注册");
+                            }else{
+                                sweetAlert("手机验证码错误");
+                            }
                         }
-                    })
+                    });
                 }
             }
 

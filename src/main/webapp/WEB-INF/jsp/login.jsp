@@ -35,12 +35,27 @@
             }else if (vcode == ""){
                 sweetAlert("请填写验证码");
             }else{
+                var params ={};
+                params.phonenumber = phonenumber;
+                params.password = password;
+                params.vcode = vcode;
                 $.ajax({
-                    url:'userlogin',
-                    type:'post',
-                    data: 'phonenumber='+phonenumber+'&password='+password+'&vcode='+vcode,
+                    async:false,
+                    url:"userlogin",
+                    type:"post",
+                    data: params,
+                    datatype:'json',
                     success: function (data) {
-                        sweetAlert("正在登录，请稍后");
+                        if(data.code == "0"){
+                            window.location.href = "userpage";
+                            sweetAlert("登陆成功！");
+                        }else if(data.code == "1"){
+                            sweetAlert("密码错误");
+                        }else if(data.code == "2"){
+                            sweetAlert("该手机号未注册");
+                        }else{
+                            sweetAlert("验证码错误");
+                        }
                     }
                 })
             }
@@ -163,11 +178,11 @@
                 <form action="userlogin" method="post">
                     <div class="input-group d1">
                         <span class="input-group-addon glyphicon glyphicon-user" id="basic-addon1"></span>
-                        <input type="text" id="phonenumber" value="<%=session.getAttribute("userphone")%>" class="form-control" placeholder="手机号码" name="phonenumber" aria-describedby="basic-addon1">
+                        <input type="text" id="phonenumber" placeholder="手机号码" value="${sessionScope.userphone}" class="form-control"  name="phonenumber" aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group d2">
                         <span class="input-group-addon glyphicon glyphicon-asterisk" id="basic-addon2"></span>
-                        <input type="password" id="password" value="<%=session.getAttribute("password")%>" class="form-control" placeholder="password" name="password" aria-describedby="basic-addon1">
+                        <input type="password" id="password" value="${sessionScope.password}" class="form-control" placeholder="请输入密码" name="password" aria-describedby="basic-addon1">
                     </div>
                     <div id="vcinput">
                         <input type="text" id="vcode" class="form-control" placeholder="请输入验证码" name="vcode" aria-describedby="basic-addon1">

@@ -11,7 +11,7 @@
         (#{username},#{password},#{phonenumber},#{createtime})
     </insert>
     <update id="updatepassword">
-        update user set password = #{0} where useremail = #{1}
+        update user set password = #{0} where phonenumber = #{1}
     </update>
     <select id="querybyname" parameterType="String" resultType="com.demo.entity.User">
         select * from user where username = #{username}
