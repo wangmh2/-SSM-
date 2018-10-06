@@ -38,7 +38,7 @@
         
         #liuyanbantitle{
             position: absolute;
-            left: 305px;
+            left: 25px;
         }
         
         #table1{
@@ -79,6 +79,12 @@
             left: 5px;
             top: 510px;
         }
+        
+        #fanhui{
+            position: absolute;
+            left: 500px;
+            top: 510px;
+        }
     </style>
 </head>
 <body>  
@@ -90,13 +96,13 @@
             <div id="table1">
                 <table class="table table-hover"  id="table2">
                     <tr style="height: 50px;">
-                        <th style="text-align: center;vertical-align: middle;">用户邮箱</th>
+                        <th style="text-align: center;vertical-align: middle;">用户名</th>
                         <th style="text-align: center;vertical-align: middle;">他/她的留言</th>
                         <th style="text-align: center;vertical-align: middle;">留言时间</th>
                     </tr>
                     <c:forEach items="${message1}" var="message">
                         <tr>
-                            <td style="text-align: center;vertical-align: middle;">${message.useremail}</td>
+                            <td style="text-align: center;vertical-align: middle;">${message.username}</td>
                             <td style="text-align: center;width: 350px;vertical-align: middle;">${message.info}</td>
                             <td style="text-align: center;vertical-align: middle;">${message.createtime}</td>
                         </tr>
@@ -113,6 +119,9 @@
                     <button class="btn btn-info" id="nextbutton" onclick="next()">下一页</button>
                     
                 </div>
+                <div id="fanhui">
+                    <a href="userpage">返回用户界面</a>
+                </div>
             </div>
         </div>
     </div>
@@ -122,11 +131,30 @@
 <script type="text/javascript">
     function addmessage(){
         var info = document.getElementById("amessage").value.trim();
-        var useremail = "<%=session.getAttribute("useremail")%>";
+        var username = "<%=session.getAttribute("username")%>";
         if(info == ""){
             sweetAlert("朋友您确定不吐槽一下我的这个破网站吗");
         }else{
-            location.href = "addmessage?info="+info+"&useremail="+useremail;
+            var params = {};
+            params.username = username;
+            params.info = info;
+            $.ajax({
+                async:false,
+                url:"addmessage",
+                type:"post",
+                data:params,
+                datatype:'json',
+                success: function (data) {
+                    if(data.code == "0"){
+                        location.reload();
+                        sweetAlert("留言成功");
+                        
+                    }else{
+                        sweetAlert("留言失败");
+                    }
+                    
+                }
+            })
         }
     }
     

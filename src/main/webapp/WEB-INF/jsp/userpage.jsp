@@ -84,7 +84,7 @@
         });
         
         function tishi(){
-            sweetAlert("此功能还未开发完全");
+            sweetAlert("此功能还在测试中");
         }
         
     </script>
@@ -108,7 +108,7 @@
             font-size: 25px;
         }
         
-        #useremail{
+        #username{
             position: absolute;
             top: 10px;
         }
@@ -123,8 +123,8 @@
     <!--导航条-->
     <nav>
         
-        <div onclick="tishi()">
-            
+        <div>
+            <a href="danmu">
                 <div>
                     <h1>在线弹幕聊天</h1>
                     <span></span>
@@ -136,7 +136,7 @@
             </a>
         </div>
         <div onclick="tishi()">
-           
+            <a href="beiwanglu">
                 <div>
                     <h1>备忘录</h1>
                     <span></span>
@@ -175,7 +175,7 @@
         <div>
             
         </div>
-        <div id="useremail">
+        <div id="username">
             <p>尊敬的用户<%=session.getAttribute("username")%><%=session.getAttribute("time")%>
         </div>
     </nav>

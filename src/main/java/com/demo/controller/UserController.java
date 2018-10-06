@@ -58,6 +58,18 @@ public class UserController {
     @RequestMapping("userpage")
     public String chat(){return "userpage";}
 
+    //跳转至备忘录界面
+    @RequestMapping("beiwanglu")
+    public String beiwanglu() {
+        return "beiwanglu";
+    }
+
+    //跳转至弹幕界面
+    @RequestMapping("danmu")
+    public String danmu() {
+        return "danmu";
+    }
+
 
     //登录控制
     @ResponseBody

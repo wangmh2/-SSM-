@@ -32,7 +32,28 @@
 
   </properties>
 
+  <repositories>
+    <repository>
+      <id>goeasy</id>
+      <name>goeasy</name>
+      <url>http://maven.goeasy.io/content/repositories/releases/</url>
+    </repository>
+  </repositories>
+
   <dependencies>
+
+    <dependency>
+      <groupId>io.goeasy</groupId>
+      <artifactId>goeasy-sdk</artifactId>
+      <version>0.3.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.18</version>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -260,16 +281,16 @@
       <classifier>jdk15</classifier><!-- 指定jdk版本 -->
     </dependency>
       <!--quartz -->
-      <dependency>
-          <groupId>org.quartz-scheduler</groupId>
-          <artifactId>quartz</artifactId>
-          <version>2.2.1</version>
-      </dependency>
-      <dependency>
-          <groupId>org.quartz-scheduler</groupId>
-          <artifactId>quartz-jobs</artifactId>
-          <version>2.2.1</version>
-      </dependency>
+    <dependency>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz</artifactId>
+      <version>2.2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz-jobs</artifactId>
+      <version>2.2.1</version>
+    </dependency>
       <!-- JavaMail -->
       <dependency>
           <groupId>javax.mail</groupId>
@@ -288,7 +309,8 @@
           <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
           <version>1.1.0</version>
       </dependency>
-
+      
+      
   </dependencies>
 
   <build>
@@ -326,6 +348,16 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
+        </configuration>
+      </plugin>
+    </plugins>
 
     <resources>           
       <resource>                
@@ -336,9 +368,6 @@
         </includes>                
         <filtering>false</filtering>           
       </resource>        
-    </resources>	
-  
-    
-
+    </resources>
   </build>
 </project>

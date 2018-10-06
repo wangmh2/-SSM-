@@ -6,31 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+//留言板控制
 @Controller
 public class MessageController {
     @Autowired
     private MessageServiceImpl mmi;
     //增加留言
-    @RequestMapping(value = "addmessage",method = RequestMethod.GET)
-    public ModelAndView addmessage(HttpServletRequest request, HttpServletResponse response){
-        ModelAndView mav = new ModelAndView();
-        String info = request.getParameter("info");
-        String useremail = request.getParameter("useremail");
+    @ResponseBody
+    @RequestMapping(value = "addmessage",method = RequestMethod.POST)
+    public Map<String,Object> addmessage(String username, String info,
+                          HttpServletRequest request, HttpServletResponse response){
+        Map<String,Object> map = new HashMap<String,Object>();
         Date date = new Date();
         Timestamp createtime = new Timestamp(date.getTime());
-        Message message = new Message(useremail,info,createtime);
+        Message message = new Message(username,info,createtime);
         //向数据库中增加一条留言
         mmi.addmessage(message);
-        //当前总数据条数和总页数并放入session中
+        //当前总数据条数和总页数pagenum并放入session中
         int num = mmi.queryconut();
         int pagenum = 0;
         if(num % 5 != 0){
@@ -41,13 +41,13 @@ public class MessageController {
         request.getSession().setAttribute("pagenum",pagenum);
         System.out.println("pagenum"+pagenum);
         List<Message> list = new ArrayList();
-        list = mmi.querymessage(1);
+        list = mmi.querymessage(pagenum);
+        request.getSession().setAttribute("message1",list);
         for(Message i : list){
             System.out.println(i);
         }
-        mav.addObject("message1",list);
-        mav.setViewName("liuyanban");
-        return mav;
+        map.put("code","0");
+        return map;
     }
     //第一次进入时初始化留言板
     @RequestMapping("message")

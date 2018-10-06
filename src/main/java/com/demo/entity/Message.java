@@ -3,7 +3,7 @@ package com.demo.entity;
 import java.sql.Timestamp;
 
 public class Message {
-    private String useremail;
+    private String username;
     private String info;
     private Timestamp createtime;
     
@@ -11,18 +11,18 @@ public class Message {
         
     }
 
-    public Message(String useremail, String info, Timestamp createtime) {
-        this.useremail = useremail;
+    public Message(String username, String info, Timestamp createtime) {
+        this.username = username;
         this.info = info;
         this.createtime = createtime;
     }
 
-    public String getUseremail() {
-        return useremail;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUseremail(String useremail) {
-        this.useremail = useremail;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getInfo() {
@@ -44,7 +44,7 @@ public class Message {
     @Override
     public String toString() {
         return "Message{" +
-                "useremail='" + useremail + '\'' +
+                "useremail='" + username + '\'' +
                 ", info='" + info + '\'' +
                 ", createtime=" + createtime +
                 '}';
