@@ -5,10 +5,15 @@
      项目中存在的问题还很多，需要一一思考改正。但是不管怎么说，不积跬步无以至千里，不积小流无以成江海，争取每天进步一点点。
 
 项目名称：实时弹幕交流网站
+
 项目github地址：https://github.com/wang1103574375/-SSM-
+
 项目演示网址：http://www.wangmenghao.top
+
 项目使用框架：Spring + SpringMVC + MyBatis + BootStrap
+
 项目开发工具：IDEA + Maven + Git
+
 项目主要模块及使用技术介绍：
 一、首页
 前端使用的框架是BootStrap，首页的动态背景使用的是Github上的开源项目particles-js，天气预报功能是使用了高德地图API及和风天气API组合来实现的。
